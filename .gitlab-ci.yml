@@ -1,0 +1,43 @@
+stages:
+    - build
+    - test
+    - deploy
+
+variables:
+    PROJECT_GIT: 'git@git.tigerbrokers.net:fed/npm/jigsaw.git'
+    # 发布机构建路径
+    PUBLISH_BUILD_PATH: '/data0/codes/build/jigsaw'
+
+before_script:
+    - echo 'PUBLISH_BUILD_PATH='$PUBLISH_BUILD_PATH
+    - echo 'PROJECT_GIT='$PROJECT_GIT
+    - npm config set '//r.npm.tigerfintech.com/:_password' "${NPM_AUTHOR_PASSWORD}"
+    - npm config set '//r.npm.tigerfintech.com/:username' "${NPM_AUTHOR}"
+    - npm config set '//r.npm.tigerfintech.com/:email' "${NPM_AUTHOR_EMAIL}"
+    - npm config set '//r.npm.tigerfintech.com/:always-auth' "false"
+
+publish:
+    stage: build
+    tags:
+        - fed-shell-ci-cd
+
+    script:
+        - if [ ! -d $PUBLISH_BUILD_PATH ]; then git clone $PROJECT_GIT $PUBLISH_BUILD_PATH; fi
+        - cd $PUBLISH_BUILD_PATH
+        # 强制丢掉本地未保存内容
+        - git reset --hard
+        - git fetch
+        - git checkout $CI_COMMIT_REF_NAME
+        # 使用 git reset 代替 git pull，以确保总是与远程分支完全一致
+        # 避免pull导致的本地merge带来的不确定性
+        - git reset --hard origin/$CI_COMMIT_REF_NAME
+        # 同步本次构建的commit，以支持ci-environment的Rollback回滚
+        - git reset --hard $CI_COMMIT_SHA
+        - rm -rf node_modules
+        - cnpm install --registry=http://r.npm.tigerfintech.com
+        - npm run lint
+        - npm run release
+        - npm run deploy
+    only:
+        - master
+    when: manual

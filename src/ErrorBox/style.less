@@ -1,0 +1,20 @@
+@import '../style/index.less';
+
+@error-box-prefix: ~'@{prefix}-error-box';
+
+.@{error-box-prefix} {
+    margin: 30px auto;
+    max-width: 800px;
+    text-align: center;
+    .anticon {
+        font-size: 40px;
+        color: #faad14;
+    }
+    &-title {
+        margin-top: 8px;
+    }
+    &-msg {
+        margin: 8px 0;
+        font-size: 13px;
+    }
+}

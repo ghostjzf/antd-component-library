@@ -1,0 +1,13 @@
+**/*.svg
+**/*.ejs
+**/*.html
+.umi
+.umi-production
+.umi-test
+
+/umi-static
+/dist
+/lib
+/assets
+/coverage
+/node_modules

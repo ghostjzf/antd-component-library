@@ -1,0 +1,66 @@
+@import '../style/index.less';
+
+@loading-prefix: ~'@{prefix}-loading';
+
+.@{loading-prefix}-container {
+    position: relative;
+    .@{loading-prefix}-nested {
+        .@{loading-prefix}-element {
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .jigsaw-loading-blur {
+        clear: both;
+        overflow: hidden;
+        opacity: 0.5;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+    }
+}
+
+.@{loading-prefix}-element {
+    color: @primary-color;
+    text-align: center;
+    &-icon {
+        margin-top: 10px;
+        font-size: 24px;
+    }
+    &-text {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: bolder;
+    }
+}
+
+.@{loading-prefix}-global {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .@{loading-prefix}-element {
+        padding: 10px;
+        min-width: 150px;
+        max-width: 80%;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-radius: 6px;
+    }
+}
+
+@{loading-prefix}-effect {
+    overflow: hidden;
+}

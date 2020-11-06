@@ -1,0 +1,31 @@
+@import '../style/index.less';
+
+@phone-field-prefix: ~'@{prefix}-phone-field';
+
+.@{phone-field-prefix}-telcode-panel {
+    width: 360px;
+    height: 230px;
+    overflow: auto;
+    & dd {
+        text-align: justify;
+        margin-bottom: 15px;
+    }
+}
+
+.@{phone-field-prefix}-telcode-value {
+    cursor: pointer;
+}
+
+.@{phone-field-prefix}-country-code {
+    padding: 0;
+    position: relative;
+    display: inline;
+    margin-right: 5px;
+    &.current {
+        font-weight: bold;
+        color: black;
+    }
+    &:hover {
+        font-weight: bold;
+    }
+}

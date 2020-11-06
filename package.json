@@ -1,0 +1,130 @@
+{
+  "name": "@tiger/jigsaw",
+  "version": "1.13.0",
+  "scripts": {
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "tiger-oss ./umi-static/ jigsaw",
+    "build": "father-build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "release": "npm run build && release-it --ci",
+    "release:manual": "release-it",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx,.mjs",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "commit": "git-cz"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "http://r.npm.tigerfintech.com"
+  },
+  "release-it": {
+    "git": {
+      "requireBranch": "master",
+      "commitMessage": "chore: release v${version}"
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "node_modules/.bin/commitlint --edit $HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ],
+      "scope-case": [
+        0
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,scss,less,json,html,md}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@tinymce/tinymce-react": "^3.5.0",
+    "moment-timezone": "^0.5.31",
+    "react-is": "^16.13.1"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^4.2.1",
+    "@tiger/antd-modal": "^0.0.8",
+    "antd": "4.5.2",
+    "lodash": "^4.17.15",
+    "axios": "0.18.0",
+    "react": "16.13.1",
+    "react-antd-formutil": "1.1.9",
+    "react-dom": "16.13.1",
+    "react-formutil": "1.0.18",
+    "react-router-dom": "5.2.0",
+    "moment-timezone": "^0.5.23",
+    "moment": "^2.27.0"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^4.2.1",
+    "@tiger/antd-modal": "^0.0.8",
+    "antd": "4.5.2",
+    "axios": "0.18.0",
+    "lodash": "^4.17.15",
+    "react": "16.13.1",
+    "react-antd-formutil": "1.1.9",
+    "react-dom": "16.13.1",
+    "react-formutil": "1.0.18",
+    "@release-it/conventional-changelog": "^1.1.4",
+    "@tigerbrokers/cdn": "^2.1.1",
+    "@types/enzyme": "^3.10.5",
+    "@typescript-eslint/eslint-plugin": "3.1.0",
+    "@typescript-eslint/parser": "3.1.0",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.0.5",
+    "@commitlint/cli": "9.0.1",
+    "@commitlint/config-conventional": "9.0.1",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "dumi": "^1.0.9",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "7.1.0",
+    "eslint-config-react-app": "5.2.1",
+    "eslint-plugin-flowtype": "5.1.3",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "4.0.4",
+    "father-build": "^1.17.2",
+    "husky": "3.1.0",
+    "lint-staged": "^10.0.7",
+    "moment": "^2.27.0",
+    "prettier": "^1.19.1",
+    "release-it": "^13.6.5",
+    "sinon": "^9.0.2",
+    "yorkie": "^2.0.0",
+    "moment-timezone": "^0.5.23"
+  }
+}
